@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/stylesheets/vars.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p>go ahead, say something important</p>
+        <form action="/subRes" method="POST">
+            <textarea
+                name="userMessage"
+                id="userMessage"
+                cols="30"
+                rows="10"
+            ></textarea
+            ><br />
+            <input type="hidden" name="PB" id="PB" value="<%= PB %>" />
+            <input type="hidden" name="token" id="token" value="<%= token %>" />
+            <input type="submit" id="submitMsg" value="Eject to the ether" />
+        </form>
+    </body>
+</html>
