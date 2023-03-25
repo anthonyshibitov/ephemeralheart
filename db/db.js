@@ -35,14 +35,45 @@ async function createPost(postContents, ipAddress) {
     }
 }
 
-async function updatePostSameID(id) {
+// BURN
+// Returns amount of passes
+async function updatePostSameID(id, message, ipAddress) {
     try {
-    } catch (err) {}
+        const result0 = await pool.query(
+            "SELECT passes FROM posts WHERE post_id = $1",
+            [id]
+        );
+        const result1 = await pool.query(
+            "UPDATE posts SET post_contents = $1 WHERE post_id = $2",
+            [message, id]
+        );
+        const result2 = await pool.query(
+            "UPDATE posts SET post_ip = $1 WHERE post_id = $2",
+            [ipAddress, id]
+        );
+        const result3 = await pool.query(
+            "UPDATE posts SET passes = 0 WHERE post_id = $1",
+            [id]
+        );
+        return result0.rows[0].passes;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 async function incrementPassByID(id) {
     try {
+        const result = await pool.query(
+            "SELECT * FROM posts WHERE post_id = $1",
+            [id]
+        );
+        const passes = result.rows[0].passes + 1;
+        await pool.query("UPDATE posts SET passes = $1 WHERE post_id = $2", [
+            passes,
+            id,
+        ]);
     } catch (err) {
+        console.log("increment error");
         console.error(err);
     }
 }
@@ -141,6 +172,7 @@ export default {
     testConnection,
     createPost,
     updatePostSameID,
+    incrementPassByID,
     getRandomPost,
     getPostByID,
     addToken,

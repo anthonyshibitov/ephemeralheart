@@ -1,5 +1,6 @@
 import token from "./token.js";
 import db from "./db/db.js";
+import post from "./post.js";
 
 function getPost(req, res) {
     res.render("index");
@@ -58,19 +59,44 @@ async function submitMessage(req, res) {
 
 async function submitMessagePost(req, res) {
     const post_id = await db.getPostIDByToken(req.body.token);
-    console.log("[POST] TOKEN: ", req.body.token);
-    console.log("[POST] POST: ", req.body.userMessage);
-    console.log("[POST] P/B:", req.body.PB);
-    console.log("[POST] ID:", post_id);
     const auth = await token.authenticateToken(req.body.token);
     if (!auth) {
         res.redirect(307, "/postTokenDied");
     } else {
+        console.log(
+            "[MSG SUCCESS]: ID:",
+            post_id,
+            "P/B:",
+            req.body.PB,
+            "MSG:",
+            req.body.userMessage.slice(0, 20),
+            "..."
+        );
         if (req.body.PB === "Pass") {
+            //increase pass counter of post_id, and CREATE post
+            //params:
+            //post_id, userMessage, ipAddress
+            const result = await post.pass(
+                post_id,
+                req.body.userMessage,
+                req.ip
+            );
         }
         if (req.body.PB === "Burn") {
+            //replace post with this info, and set pass to 0!
+            //params:
+            //post_id, userMessage, ipAddress
+            const passes = await post.burn(
+                post_id,
+                req.body.userMessage,
+                req.ip
+            );
+            console.log(
+                "you burned a message that was passed",
+                passes,
+                "time(s)"
+            );
         }
-        //ADD TO DB, DELETE/INC POST
         token.DestroyToken(req.body.token);
         res.redirect("/thanks");
     }
@@ -90,10 +116,10 @@ function getThanks(req, res) {
 
 // CLIENT END POINTS!! ~~
 
-function stress(req, res) {
+async function stress(req, res) {
     console.log("[GET] getting STRESS TEST PATH :D");
-    const newToken = token.generateToken();
-    const result = token.authenticateToken(newToken);
+    const newToken = await token.generateToken(req.ip);
+    const result = await token.authenticateToken(newToken);
     console.log("[TOKEN]", newToken, "is auth?", result);
     res.sendStatus(200);
 }

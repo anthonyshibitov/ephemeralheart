@@ -1,4 +1,9 @@
 -- Insert dummy posts
+
+DROP TABLE IF EXISTS postTokens;
+DROP TABLE IF EXISTS tokens;
+DROP TABLE IF EXISTS posts;
+
 CREATE TABLE posts (
     post_id serial PRIMARY KEY,
     post_contents VARCHAR(1000) NOT NULL,

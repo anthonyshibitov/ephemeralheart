@@ -24,9 +24,7 @@ app.listen(port, () => {
 });
 
 app.use("*", (req, res, next) => {
-    console.log("[METHOD]:", req.method);
-    console.log("[PATH]:", req.originalUrl);
-    console.log("[IP]:", req.ip);
+    console.log("[METHOD/PATH/IP]:", req.method, req.originalUrl, req.ip);
     next();
 });
 
