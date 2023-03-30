@@ -5,28 +5,91 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/stylesheets/vars.css" />
-        <link rel="stylesheet" href="/stylesheets/vars.css" />
         <link rel="stylesheet" href="/stylesheets/god.css" />
         <title>Document</title>
     </head>
     <body>
-        <p>This is the post below:</p>
-        <b> <%= postText %> </b>
-        <p>it's been read <%= passes %> times...</p>
-        <p>u finna fuck it up?</p>
-        <form action="/submitMessage" method="POST">
-            <label for="pass">Pass</label>
-            <input
-                type="radio"
-                name="PB"
-                id="pass"
-                value="Pass"
-                required
-            /><br />
-            <label for="burn">Burn</label>
-            <input type="radio" name="PB" id="burn" value="Burn" />
-            <input type="hidden" name="token" id="token" value="<%= token %>" />
-            <input type="submit" value="Submit" />
-        </form>
+        <div class="outer-container">
+            <div class="container fade-2s">
+                <h1 id="header-name" class="">
+                    EPHEMERAL<span class="throb">❦</span>HEART
+                </h1>
+                <h3 style="margin: 0px">✧༺♡༻✧</h3>
+
+                <nav>
+                    <a href="/" class="link">home</a>
+                    <a href="/" class="link">about</a>
+                    <a href="/" class="link">sasha</a>
+                </nav>
+
+                <div class="hard-box">
+                    <h2 style="margin-bottom: 0px">Tribunal</h2>
+                    <p>
+                        Welcome to tribunal, where you will decide the fate of a
+                        stranger's anonymous message. The choice is entirely
+                        yours, and there are no rules or expectations. No one
+                        will know what you choose.
+                    </p>
+                    <p>Consider the following</p>
+                    <h2 style="margin-top: 0px; margin-bottom: 0px">
+                        Anonymous message
+                    </h2>
+                    <p><code><%= postText %></code></p>
+                    <h2 style="margin-bottom: 0px">Pass or Burn</h2>
+                    <p>
+                        This message has been passed and read by
+                        <span class="invert"><%= passes %></span>
+                        other <% if(passes == 1) { %> person<% } else { %>
+                        people<% } %>. Will you
+                        <span class="invert">pass it</span>, and allow someone
+                        else to read it? Or will you
+                        <span class="invert">burn it</span>, and permanently
+                        erase it?
+                    </p>
+                    <form action="/submitMessage" method="POST">
+                        <div class="tribunal-form">
+                            <label for="pass">Pass:</label>
+                            <input
+                                type="radio"
+                                name="PB"
+                                id="pass"
+                                value="Pass"
+                                required
+                            />
+                            <div style="width: 40px"></div>
+                            <label for="burn">Burn:</label>
+                            <input
+                                type="radio"
+                                name="PB"
+                                id="burn"
+                                value="Burn"
+                            />
+                            <input
+                                type="hidden"
+                                name="token"
+                                id="token"
+                                value="<%= token %>"
+                            />
+                        </div>
+                        <br />
+                        <div class="submit">
+                            <input type="submit" value="Submit" />
+                        </div>
+                    </form>
+                    <h2 class="red" style="margin-bottom: 0px">Abuse</h2>
+                    <p>
+                        <i>
+                            There is a
+                            <span>zero-tolerance policy</span> regarding hateful
+                            speech and spam. Failure to follow this will result
+                            in a permanent ban. There are no ban appeals.
+                        </i>
+                    </p>
+                    <p>
+                        <i> Please be normal. Thanks. </i>
+                    </p>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

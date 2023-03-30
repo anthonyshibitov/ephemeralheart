@@ -1,6 +1,7 @@
 import token from "./token.js";
 import db from "./db/db.js";
 import post from "./post.js";
+import chalk from "chalk";
 
 function getPost(req, res) {
     res.render("index");
@@ -31,6 +32,7 @@ async function getTribunal(req, res) {
                 postText: post.post_contents,
                 passes: post.passes,
                 token: req.query.token,
+                id: post_id,
             };
             res.render("tribunal", dbResult);
         }
@@ -58,18 +60,20 @@ async function submitMessage(req, res) {
 }
 
 async function submitMessagePost(req, res) {
+    let messagePasses = undefined;
     const post_id = await db.getPostIDByToken(req.body.token);
     const auth = await token.authenticateToken(req.body.token);
     if (!auth) {
         res.redirect(307, "/postTokenDied");
     } else {
         console.log(
-            "[MSG SUCCESS]: ID:",
+            chalk.inverse("[MSG SUCCESS]"),
+            "ID:",
             post_id,
             "P/B:",
             req.body.PB,
             "MSG:",
-            req.body.userMessage.slice(0, 20),
+            chalk.magenta(req.body.userMessage.slice(0, 20)),
             "..."
         );
         if (req.body.PB === "Pass") {
@@ -86,19 +90,14 @@ async function submitMessagePost(req, res) {
             //replace post with this info, and set pass to 0!
             //params:
             //post_id, userMessage, ipAddress
-            const passes = await post.burn(
+            messagePasses = await post.burn(
                 post_id,
                 req.body.userMessage,
                 req.ip
             );
-            console.log(
-                "you burned a message that was passed",
-                passes,
-                "time(s)"
-            );
         }
         token.DestroyToken(req.body.token);
-        res.redirect("/thanks");
+        res.render("thanks.ejs", { passes: messagePasses });
     }
 }
 

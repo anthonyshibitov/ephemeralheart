@@ -1,9 +1,10 @@
 import db from "./db/db.js";
+import chalk from "chalk";
 
 const tokens = [];
 
 //in ms, token shelf life
-const tokenTimeout = 20000;
+const tokenTimeout = 2000000;
 
 async function generateToken(ipAddress) {
     let token = "";
@@ -16,8 +17,7 @@ async function generateToken(ipAddress) {
         );
     }
 
-    console.log("[TOKEN]", token, "has been created :)");
-    //tokens.push(token);
+    console.log(chalk.cyan("[TOKEN]"), token, "has been created :)");
     await db.addToken(token, ipAddress);
     setTimeout(async () => {
         DestroyToken(token);
@@ -26,27 +26,15 @@ async function generateToken(ipAddress) {
 }
 
 async function DestroyToken(token) {
-    // const index = tokens.indexOf(token);
-    // if (index != -1) {
-    //     tokens.splice(index, 1);
-    //     console.log("[TOKEN]", token, "has been destroyed :(");
-    // } else {
-    //     console.log("[TOKEN]", token, "doesn't exist");
-    // }
     const result = await db.removeTokenByString(token);
     if (result) {
-        console.log("[TOKEN]", token, "has been destroyed");
+        console.log(chalk.cyan("[TOKEN]"), token, "has been destroyed");
     } else {
-        console.log("[TOKEN]", token, "does not exist");
+        console.log(chalk.cyan("[TOKEN]"), token, "does not exist");
     }
 }
 
 async function authenticateToken(token) {
-    // if (tokens.indexOf(token) != -1) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
     try {
         const result = await db.findTokenByString(token);
         if (result != undefined) {
@@ -59,4 +47,4 @@ async function authenticateToken(token) {
     }
 }
 
-export default { generateToken, authenticateToken, DestroyToken };
+export default { generateToken, authenticateToken, DestroyToken, tokenTimeout };

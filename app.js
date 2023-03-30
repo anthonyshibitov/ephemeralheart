@@ -1,6 +1,9 @@
 import express from "express";
 import routes from "./routes.js";
 import db from "./db/db.js";
+import chalk from "chalk";
+import md5 from "md5";
+import token from "./token.js";
 
 db.testConnection();
 db.createPost(
@@ -19,12 +22,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(port, () => {
-    console.log("[SERVER] Boot");
-    console.log(`[SERVER] Listening on port ${port}...`);
+    console.log(chalk.red("[SERVER]"), "Boot");
+    console.log(chalk.red("[SERVER]"), `Listening on port ${port}...`);
+    console.log(
+        chalk.red("[SERVER]"),
+        `Token shelf life (ms): ${token.tokenTimeout}`
+    );
 });
 
 app.use("*", (req, res, next) => {
-    console.log("[METHOD/PATH/IP]:", req.method, req.originalUrl, req.ip);
+    console.log(
+        chalk.green("[METHOD/PATH/IP HASH]:"),
+        req.method,
+        req.originalUrl,
+        md5(req.ip)
+    );
     next();
 });
 

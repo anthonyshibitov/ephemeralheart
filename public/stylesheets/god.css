@@ -160,6 +160,19 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+label {
+    font-family: "Gloock";
+}
+
+textarea {
+    font-family: monospace;
+    width: 100%;
+    font-size: 16px;
+    color: var(--dark-main-fg-white);
+    background-color: var(--dark-main-bg);
 }
 
 .fade-2s {
@@ -178,6 +191,13 @@ footer {
     -webkit-animation-iteration-count: infinite;
 }
 
+.tribunal-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}
 @keyframes throb {
     0% {
         color: var(--dark-main-fg-white);
@@ -204,7 +224,7 @@ footer {
 
 @media only screen and (min-width: 768px) {
     .container {
-        width: 80vw;
+        width: 60vw;
     }
     #header-name {
         font-size: 6vw;
