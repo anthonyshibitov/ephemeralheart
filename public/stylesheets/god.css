@@ -173,6 +173,11 @@ textarea {
     font-size: 16px;
     color: var(--dark-main-fg-white);
     background-color: var(--dark-main-bg);
+    resize: none;
+}
+
+code {
+    white-space: pre-line;
 }
 
 .fade-2s {

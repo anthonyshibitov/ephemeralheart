@@ -50,8 +50,11 @@ app.post("/postTokenDied", routes.postTokenDied);
 app.get("/postTokenDied", routes.getTokenDied);
 
 app.get("/thanks", routes.getThanks);
+app.get("/about", routes.getAbout);
 
 app.get("/stressTestPath", routes.stress);
+
+app.use("/favicon.ico", express.static("/favicon.ico"));
 
 // 404 route
 app.use(function (req, res) {

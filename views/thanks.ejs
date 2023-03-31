@@ -5,16 +5,55 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/stylesheets/vars.css" />
-        <title>Document</title>
+        <link rel="stylesheet" href="/stylesheets/god.css" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="images/favicon-16x16.png"
+        />
+        <link rel="manifest" href="images/site.webmanifest" />
+        <link
+            rel="mask-icon"
+            href="images/safari-pinned-tab.svg"
+            color="#5bbad5"
+        />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <title>ephemeral <3</title>
     </head>
     <body>
-        <p>thank you, your response has been recorded.</p>
-        <p>take me <a href="/">home</a></p>
+        <div class="outer-container">
+            <div class="container fade-2s">
+                <h1 id="header-name" class="">
+                    EPHEMERAL<span class="throb">❦</span>HEART
+                </h1>
+                <h3 style="margin: 0px">✧༺♡༻✧</h3>
 
-        <% if(passes != undefined) { %>
-        <p>you burned a message with <%= passes+1 %> passes on it. why?</p>
-        <% } else {%>
-        <p>you passed on a message. hopefully someone makes use of it.</p>
-        <% } %>
+                <nav>
+                    <a href="/" class="link">home</a>
+                    <a href="/about" class="link">about</a>
+                    <a href="/" class="link">sasha</a>
+                </nav>
+                <div class="hard-box">
+                    <h2 style="margin-top: 0px; margin-bottom: 0px">
+                        Message received
+                    </h2>
+                    <p>Thanks.</p>
+                </div>
+            </div>
+        </div>
+        <script></script>
     </body>
 </html>

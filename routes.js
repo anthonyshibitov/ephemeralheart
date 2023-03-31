@@ -113,6 +113,10 @@ function getThanks(req, res) {
     res.render("thanks.ejs");
 }
 
+function getAbout(req, res) {
+    res.render("about.ejs");
+}
+
 // CLIENT END POINTS!! ~~
 
 async function stress(req, res) {
@@ -133,4 +137,5 @@ export default {
     getTokenDied,
     getInterstitial,
     stress,
+    getAbout,
 };
