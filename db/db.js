@@ -89,6 +89,7 @@ async function getRandomPost() {
     }
 }
 
+// Returns undefined if does not exist
 async function getPostByID(id) {
     try {
         const result = await pool.query(

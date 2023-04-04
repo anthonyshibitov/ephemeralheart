@@ -35,7 +35,7 @@ app.use("*", (req, res, next) => {
         chalk.green("[METHOD/PATH/IP HASH]:"),
         req.method,
         req.originalUrl,
-        md5(req.ip)
+        req.ip
     );
     next();
 });

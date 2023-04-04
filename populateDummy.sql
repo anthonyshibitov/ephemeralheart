@@ -25,3 +25,9 @@ CREATE TABLE postTokens (
     FOREIGN KEY (fk_post_id) REFERENCES posts(post_id),
     FOREIGN KEY (fk_token_id) REFERENCES tokens(token_id) ON DELETE CASCADE
 );
+
+CREATE TABLE bannedIPs (
+    bannedIP_id SERIAL PRIMARY KEY,
+    bannedIP_ip CIDR NOT NULL
+);
+

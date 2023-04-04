@@ -67,7 +67,7 @@ async function submitMessagePost(req, res) {
         res.redirect(307, "/postTokenDied");
     } else {
         console.log(
-            chalk.inverse("[MSG SUCCESS]"),
+            chalk.inverse("[MSG RECVD SUCCESS]"),
             "ID:",
             post_id,
             "P/B:",
