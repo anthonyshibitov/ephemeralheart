@@ -32,4 +32,15 @@ async function burn(post_id, userMessage, ipAddress) {
     }
 }
 
-export default { pass, burn };
+function screenPost(post) {
+    const bad = process.env.BADS.split(",");
+    for (let i = 0; i < bad.length; i++) {
+        const reg = new RegExp(bad[i], "i");
+        if (post.search(reg) != -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+export default { pass, burn, screenPost };

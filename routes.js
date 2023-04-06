@@ -3,6 +3,7 @@ import db from "./db/db.js";
 import post from "./post.js";
 import chalk from "chalk";
 import restrict from "./db/restrict.js";
+import jail from "./db/jail.js";
 
 function getPost(req, res) {
     res.render("index");
@@ -67,41 +68,48 @@ async function submitMessagePost(req, res) {
     if (!auth) {
         res.redirect(307, "/postTokenDied");
     } else {
-        const post_id = await db.getPostIDByToken(req.body.token);
-        //Increment counter once token is authed
-        restrict.incTokenCount(req.ip);
-        console.log(
-            chalk.inverse("[MSG RECVD SUCCESS]"),
-            "ID:",
-            post_id,
-            "P/B:",
-            req.body.PB,
-            "MSG:",
-            chalk.magenta(req.body.userMessage.slice(0, 20)),
-            "..."
-        );
-        if (req.body.PB === "Pass") {
-            //increase pass counter of post_id, and CREATE post
-            //params:
-            //post_id, userMessage, ipAddress
-            const result = await post.pass(
+        //make sure theres no bad words :)
+        if (post.screenPost(req.body.userMessage)) {
+            const post_id = await db.getPostIDByToken(req.body.token);
+            //Increment counter once token is authed
+            restrict.incTokenCount(req.ip);
+            console.log(
+                chalk.inverse("[MSG RECVD SUCCESS]"),
+                "ID:",
                 post_id,
-                req.body.userMessage,
+                "P/B:",
+                req.body.PB,
+                "MSG:",
+                chalk.magenta(req.body.userMessage.slice(0, 20)),
+                "..."
+            );
+            if (req.body.PB === "Pass") {
+                const result = await post.pass(
+                    post_id,
+                    req.body.userMessage,
+                    req.ip
+                );
+            }
+            if (req.body.PB === "Burn") {
+                messagePasses = await post.burn(
+                    post_id,
+                    req.body.userMessage,
+                    req.ip
+                );
+            }
+            token.DestroyToken(req.body.token);
+            res.render("thanks.ejs", { passes: messagePasses });
+        } else {
+            console.log(
+                chalk.redBright("[CANCEL POST]"),
+                "Post contained banned word. Banning",
                 req.ip
             );
+            //ban ip here lol
+            jail.banIP(req.ip);
+            token.DestroyToken(req.body.token);
+            res.render("thanks.ejs");
         }
-        if (req.body.PB === "Burn") {
-            //replace post with this info, and set pass to 0!
-            //params:
-            //post_id, userMessage, ipAddress
-            messagePasses = await post.burn(
-                post_id,
-                req.body.userMessage,
-                req.ip
-            );
-        }
-        token.DestroyToken(req.body.token);
-        res.render("thanks.ejs", { passes: messagePasses });
     }
 }
 
