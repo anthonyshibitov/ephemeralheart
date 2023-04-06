@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS postTokens;
 DROP TABLE IF EXISTS tokens;
 DROP TABLE IF EXISTS posts;
 
+DROP TABLE IF EXISTS bannedIPs;
+
 CREATE TABLE posts (
     post_id serial PRIMARY KEY,
     post_contents VARCHAR(1000) NOT NULL,
@@ -31,3 +33,8 @@ CREATE TABLE bannedIPs (
     bannedIP_ip CIDR NOT NULL
 );
 
+CREATE TABLE ipTokenCount (
+    ipTokenCount_id SERIAL PRIMARY KEY,
+    ipTokenCount_ip CIDR NOT NULL,
+    ipTokenCount_count int
+);

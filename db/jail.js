@@ -1,4 +1,3 @@
-// constrict token generation by ip
 import * as dotenv from "dotenv";
 import pg from "pg";
 

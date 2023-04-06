@@ -1,10 +1,11 @@
 import db from "./db/db.js";
 import chalk from "chalk";
+import restrict from "./db/restrict.js";
 
 const tokens = [];
 
 //in ms, token shelf life
-const tokenTimeout = 2000000;
+const tokenTimeout = 200000;
 
 async function generateToken(ipAddress) {
     let token = "";
@@ -19,6 +20,8 @@ async function generateToken(ipAddress) {
 
     console.log(chalk.cyan("[TOKEN]"), token, "has been created :)");
     await db.addToken(token, ipAddress);
+    //add IP to ipTokenCount table!
+    await restrict.generateTokenCount(ipAddress);
     setTimeout(async () => {
         DestroyToken(token);
     }, tokenTimeout);
@@ -34,12 +37,25 @@ async function DestroyToken(token) {
     }
 }
 
-async function authenticateToken(token) {
+async function authenticateToken(token, ip) {
     try {
-        const result = await db.findTokenByString(token);
-        if (result != undefined) {
-            return true;
+        const canAuth = await restrict.isAllowedToAuth(ip);
+        if (canAuth) {
+            const result = await db.findTokenByString(token);
+            if (result != undefined) {
+                return true;
+            } else {
+                //token isnt found
+                return false;
+            }
         } else {
+            //user has posted too much :(
+            console.log(
+                chalk.redBright("[CANCEL POST]"),
+                ipAddress,
+                "has exceeded daily token limit!"
+            );
+
             return false;
         }
     } catch (err) {

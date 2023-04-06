@@ -73,7 +73,6 @@ async function incrementPassByID(id) {
             id,
         ]);
     } catch (err) {
-        console.log("increment error");
         console.error(err);
     }
 }

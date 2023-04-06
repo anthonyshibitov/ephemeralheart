@@ -2,6 +2,7 @@ import token from "./token.js";
 import db from "./db/db.js";
 import post from "./post.js";
 import chalk from "chalk";
+import restrict from "./db/restrict.js";
 
 function getPost(req, res) {
     res.render("index");
@@ -22,7 +23,8 @@ async function getInterstitial(req, res) {
 
 async function getTribunal(req, res) {
     try {
-        const auth = await token.authenticateToken(req.query.token);
+        const auth = await token.authenticateToken(req.query.token, req.ip);
+        console.log("auth value:", auth);
         if (!auth) {
             res.redirect("postTokenDied");
         } else {
@@ -43,7 +45,7 @@ async function getTribunal(req, res) {
 
 async function submitMessage(req, res) {
     try {
-        const auth = await token.authenticateToken(req.body.token);
+        const auth = await token.authenticateToken(req.body.token, req.ip);
         if (!auth) {
             res.redirect("postTokenDied");
         } else {
@@ -61,11 +63,13 @@ async function submitMessage(req, res) {
 
 async function submitMessagePost(req, res) {
     let messagePasses = undefined;
-    const post_id = await db.getPostIDByToken(req.body.token);
-    const auth = await token.authenticateToken(req.body.token);
+    const auth = await token.authenticateToken(req.body.token, req.ip);
     if (!auth) {
         res.redirect(307, "/postTokenDied");
     } else {
+        const post_id = await db.getPostIDByToken(req.body.token);
+        //Increment counter once token is authed
+        restrict.incTokenCount(req.ip);
         console.log(
             chalk.inverse("[MSG RECVD SUCCESS]"),
             "ID:",
