@@ -6,10 +6,10 @@ import md5 from "md5";
 import token from "./token.js";
 
 db.testConnection();
-db.createPost(
-    "IM GONNA KILLMYSELF AHHHHHHHHH HELPPPPPPP MEE SODKFASOKD",
-    "192.168.1.81"
-);
+// db.createPost(
+//     "IM GONNA KILLMYSELF AHHHHHHHHH HELPPPPPPP MEE SODKFASOKD",
+//     "192.168.1.81"
+// );
 
 const app = express();
 const port = 3000;

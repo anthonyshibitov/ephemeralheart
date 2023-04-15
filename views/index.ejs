@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/stylesheets/vars.css" />
-        <link rel="stylesheet" href="/stylesheets/god.css" />
+        <link rel="stylesheet" href="/stylesheets/god_working.css" />
         <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -32,62 +32,81 @@
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <title>ephemeral <3</title>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
+            integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollToPlugin.min.js"
+            integrity="sha512-WFeBxQtM/n6U8/Nd0Hz/Hq7n75NImbzM7Kc0y/4kE0kHnH1Be+nzm32RwbGoDsW1D9fjjPvI8LIWxLrZhxew/w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
     </head>
     <body>
-        <div class="outer-container">
-            <div class="container fade-2s">
-                <h1 id="header-name" class="">
-                    EPHEMERAL<span class="throb">❦</span>HEART
-                </h1>
-                <h3 style="margin: 0px">✧༺♡༻✧</h3>
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero">
+                    <div class="hero-text" id="hero-text">
+                        <a href="/">ephemeral heart</a>
+                    </div>
+                </div>
+            </div>
 
-                <nav>
-                    <a href="/" class="link">home</a>
-                    <a href="/about" class="link">about</a>
-                    <a href="/" class="link">sasha</a>
-                </nav>
-                <div class="hard-box">
-                    <h2 style="margin-top: 0px; margin-bottom: 0px">
-                        What is this?
-                    </h2>
-                    <!-- <p>
-                        You will never be alone again. I will always be here for
-                        you. I am your personal
-                        <span class="invert">cyberheart</span>.
-                    </p>
-                    <p>
-                        Does something tug at your
-                        <span class="invert">soul</span>? Is it something you
-                        cannot identify or isolate?
-                    </p>
-                    <p>
-                        I can offer you some
-                        <span class="invert">clarity</span>.
-                    </p> -->
-                    <p>
-                        An <span class="invert">anonymous</span> message-sharing
-                        site for strangers.
-                    </p>
-                    <p>
-                        A bit like an online bathroom stall covered in
-                        <span class="invert">graffiti</span>
-                    </p>
-                    <h2 style="margin-bottom: 0px">How does it work?</h2>
-                    <p>
-                        Random <span class="invert">strangers</span> submit a
-                        post, and you decide their fate. You then submit your
-                        own for <span class="invert">judgment</span>.
-                    </p>
-                    <p>
-                        <i
-                            >More detailed instructions and suggestions will be
-                            available on the subsequent pages.</i
-                        >
-                    </p>
-                    <br />
-                    <br />
-                    <div class="submit">
-                        <form class="">
+            <div class="begin-container">
+                <form class="form">
+                    <a href="/getInterstitial">
+                        <input type="button" value="Begin" id="getPostBtn" />
+                    </a>
+                </form>
+            </div>
+
+            <div class="info-container">
+                <div class="info-wrap">
+                    <div class="info">
+                        <h1>what is this?</h1>
+                        <p>
+                            An anonymous message-sharing site for strangers. A
+                            bit like an online bathroom stall covered in
+                            graffiti, but more sanitary.
+                        </p>
+                        <p>Leave a message. Come say hi to someone.</p>
+                    </div>
+                </div>
+                <div class="info-wrap">
+                    <div class="info">
+                        <h1>how does it work?</h1>
+                        <p>
+                            When you click 'Begin', you will receive a random
+                            message a stranger has submitted. Once you read it,
+                            you will decide whether to burn it (permanently
+                            delete it), or pass it (keep it, and allow someone
+                            else to read it). Afterwards, you submit your own
+                            message.
+                        </p>
+                    </div>
+                </div>
+                <div class="info-wrap span-2">
+                    <div class="info">
+                        <h1>burn or pass?</h1>
+                        <p>
+                            It's up to you. There are no rules. Maybe consider
+                            the following though:
+                        </p>
+                        <ul>
+                            <li>Did the message do something for you?</li>
+                            <li>
+                                Do you think someone else would benefit from
+                                seeing it?
+                            </li>
+                            <li>Should anyone else see it?</li>
+                            <li>Did it fulfill its purpose?</li>
+                        </ul>
+                        <br />
+                        <br />
+                        <!-- <form class="form">
                             <a href="/getInterstitial">
                                 <input
                                     type="button"
@@ -95,17 +114,62 @@
                                     id="getPostBtn"
                                 />
                             </a>
-                        </form>
+                        </form> -->
+                        <br />
                     </div>
-                    <br />
-                    <br />
                 </div>
-                <footer>
-                    <div>EPHEMERAL</div>
-                    <div>EPHEMERAL</div>
-                </footer>
+            </div>
+            <div class="footer-container">
+                <div class="hii">made by sasha</div>
+                <div>2023</div>
+                <div><a href="/about">about</a></div>
             </div>
         </div>
-        <script></script>
+        <script defer>
+            gsap.registerPlugin(ScrollToPlugin);
+            let tl = gsap.timeline();
+
+            let anim = tl
+                .to(window, { scrollTo: 0 })
+                .from(".hero", {
+                    ease: "power3.inOut",
+                    "clip-path": "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
+                    duration: 2,
+                })
+                .from(".hero-container", {
+                    marginTop: "10rem",
+                    ease: "power3.inOut",
+                    duration: 1.5,
+                })
+                .from(
+                    ".info-container",
+                    {
+                        "clip-path":
+                            "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+                        ease: "power3.inOut",
+                        duration: 2,
+                        opacity: 0,
+                        y: 100,
+                    },
+                    "-=1.25"
+                )
+                .from(
+                    ".begin-container, .footer-container",
+                    {
+                        opacity: 0,
+                        duration: 2,
+                        ease: "power3.inOut",
+                    },
+                    "-=1.25"
+                );
+
+            anim.play();
+
+            // Let user skip animation by clicking the page
+            const skipAnim = document.getElementsByTagName("body");
+            skipAnim[0].addEventListener("click", () => {
+                anim.timeScale(5);
+            });
+        </script>
     </body>
 </html>

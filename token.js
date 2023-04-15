@@ -41,19 +41,21 @@ async function authenticateToken(token, ip) {
     try {
         const canAuth = await restrict.isAllowedToAuth(ip);
         if (canAuth) {
-            const result = await db.findTokenByString(token);
+            const result = await db.findTokenByString(token, ip);
             if (result != undefined) {
                 return true;
             } else {
                 //token isnt found
+                //
+                //DestroyToken(token);
                 return false;
             }
         } else {
             //user has posted too much :(
             console.log(
                 chalk.redBright("[CANCEL POST]"),
-                ipAddress,
-                "has exceeded daily token limit!"
+                ip,
+                "has exceeded daily token limit, or using foreign token"
             );
 
             return false;

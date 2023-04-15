@@ -125,11 +125,11 @@ async function removeTokenByString(tokenString) {
     }
 }
 
-async function findTokenByString(tokenString) {
+async function findTokenByString(tokenString, ip) {
     try {
         const result = await pool.query(
-            "SELECT * FROM tokens WHERE token_string = $1",
-            [tokenString]
+            "SELECT * FROM tokens WHERE token_string = $1 AND token_ip = $2",
+            [tokenString, ip]
         );
         return result.rows[0];
     } catch (err) {
@@ -137,9 +137,9 @@ async function findTokenByString(tokenString) {
     }
 }
 
-async function addPostToken(post_id, tokenString) {
+async function addPostToken(post_id, tokenString, ip) {
     try {
-        const token = await findTokenByString(tokenString);
+        const token = await findTokenByString(tokenString, ip);
         const token_id = token.token_id;
         try {
             const result = await pool.query(
@@ -154,9 +154,9 @@ async function addPostToken(post_id, tokenString) {
     }
 }
 
-async function getPostIDByToken(passToken) {
+async function getPostIDByToken(passToken, ip) {
     try {
-        const token = await findTokenByString(passToken);
+        const token = await findTokenByString(passToken, ip);
         const token_id = token.token_id;
         const result = await pool.query(
             "SELECT * FROM postTokens WHERE fk_token_id = $1",

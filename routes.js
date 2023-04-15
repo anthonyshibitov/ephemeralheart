@@ -15,7 +15,7 @@ async function getInterstitial(req, res) {
         const post = await db.getRandomPost();
         const id = post.post_id;
         //FUCK YOUUUUUU   vvvvv  TWO HOURS OF MY LIFE.. GONE!!!
-        const postToken = await db.addPostToken(id, newToken);
+        const postToken = await db.addPostToken(id, newToken, req.ip);
         res.redirect(`/tribunal?token=${newToken}`);
     } catch (err) {
         console.error(err);
@@ -29,7 +29,7 @@ async function getTribunal(req, res) {
         if (!auth) {
             res.redirect("postTokenDied");
         } else {
-            const post_id = await db.getPostIDByToken(req.query.token);
+            const post_id = await db.getPostIDByToken(req.query.token, req.ip);
             const post = await db.getPostByID(post_id);
             const dbResult = {
                 postText: post.post_contents,
@@ -50,7 +50,7 @@ async function submitMessage(req, res) {
         if (!auth) {
             res.redirect("postTokenDied");
         } else {
-            const post_id = await db.getPostIDByToken(req.body.token);
+            const post_id = await db.getPostIDByToken(req.body.token, req.ip);
             const post = await db.getPostByID(post_id);
             res.render("submitMessage", {
                 PB: req.body.PB,
@@ -70,7 +70,7 @@ async function submitMessagePost(req, res) {
     } else {
         //make sure theres no bad words :)
         if (post.screenPost(req.body.userMessage)) {
-            const post_id = await db.getPostIDByToken(req.body.token);
+            const post_id = await db.getPostIDByToken(req.body.token, req.ip);
             //Increment counter once token is authed
             restrict.incTokenCount(req.ip);
             console.log(
