@@ -66,7 +66,7 @@
             <div class="info-container">
                 <div class="info-wrap">
                     <div class="info">
-                        <h1>what is this?</h1>
+                        <h1 class="bottom-border">what is this?</h1>
                         <p>
                             An anonymous message-sharing site for strangers. A
                             bit like an online bathroom stall covered in
@@ -77,7 +77,7 @@
                 </div>
                 <div class="info-wrap">
                     <div class="info">
-                        <h1>how does it work?</h1>
+                        <h1 class="bottom-border">how does it work?</h1>
                         <p>
                             When you click 'Begin', you will receive a random
                             message a stranger has submitted. Once you read it,
@@ -90,7 +90,7 @@
                 </div>
                 <div class="info-wrap span-2">
                     <div class="info">
-                        <h1>burn or pass?</h1>
+                        <h1 class="bottom-border">burn or pass?</h1>
                         <p>
                             It's up to you. There are no rules. Maybe consider
                             the following though:
@@ -105,24 +105,13 @@
                             <li>Did it fulfill its purpose?</li>
                         </ul>
                         <br />
-                        <br />
-                        <!-- <form class="form">
-                            <a href="/getInterstitial">
-                                <input
-                                    type="button"
-                                    value="Begin"
-                                    id="getPostBtn"
-                                />
-                            </a>
-                        </form> -->
-                        <br />
                     </div>
                 </div>
             </div>
             <div class="footer-container">
                 <div class="hii">made by sasha</div>
                 <div>2023</div>
-                <div><a href="/about">about</a></div>
+                <div class="about-link"><a href="/about">about</a></div>
             </div>
         </div>
         <script defer>
@@ -161,7 +150,14 @@
                         ease: "power3.inOut",
                     },
                     "-=1.25"
-                );
+                )
+                .to(".form", {
+                    transform: "scale(1.1)",
+                    duration: 10,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "power3.inOut",
+                });
 
             anim.play();
 
