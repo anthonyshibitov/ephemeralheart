@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -89,5 +89,106 @@
             </div>
         </div>
         <script></script>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/stylesheets/vars.css" />
+        <link rel="stylesheet" href="/stylesheets/god_working.css" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="images/favicon-16x16.png"
+        />
+        <link rel="manifest" href="images/site.webmanifest" />
+        <link
+            rel="mask-icon"
+            href="images/safari-pinned-tab.svg"
+            color="#5bbad5"
+        />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <title>ephemeral <3</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero">
+                    <div class="hero-text" id="hero-text">
+                        <a href="/">ephemeral heart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="info-container">
+                <div class="info-wrap span-2">
+                    <div class="info">
+                        <h1>SUBMIT MESSAGE</h1>
+                        <form action="/subRes" method="POST">
+                            <textarea
+                                name="userMessage"
+                                id="userMessage"
+                                cols="25"
+                                rows="10"
+                                minlength="50"
+                                maxlength="1000"
+                                required
+                                placeholder="Type your message here . . ."
+                            ></textarea>
+                            <div class="char-wrapper">                           
+                                 <div id="char_count">0/1000</div>
+                            </div>
+                            <input
+                                type="hidden"
+                                name="PB"
+                                id="PB"
+                                value="<%= PB %>"
+                            />
+                            <input
+                                type="hidden"
+                                name="token"
+                                id="token"
+                                value="<%= token %>"
+                            />
+                            <div class="submit">
+                                <input
+                                    type="submit"
+                                    id="submitMsg"
+                                    value="Eject to the ether"
+                                />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script defer>
+            const textArea = document.getElementById('userMessage');
+            const textCount = document.getElementById('char_count');
+            textArea.addEventListener('input', () => {
+                textCount.textContent = textArea.value.length + '/1000';
+                if(textArea.value.length < 50 || textArea.value.length > 1000){
+                    textCount.style.color = 'red';
+                } else {
+                    textCount.style.color = 'green';
+                }
+            })
+        </script>
     </body>
 </html>
