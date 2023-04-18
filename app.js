@@ -6,6 +6,7 @@ import md5 from "md5";
 import token from "./token.js";
 
 db.testConnection();
+db.deleteTokens();
 // db.createPost(
 //     "IM GONNA KILLMYSELF AHHHHHHHHH HELPPPPPPP MEE SODKFASOKD",
 //     "192.168.1.81"

@@ -171,6 +171,15 @@ async function getPostIDByToken(passToken, ip) {
     }
 }
 
+async function deleteTokens() {
+    try {
+        const result = await pool.query('DELETE FROM tokens');
+        console.log('[DB] Tokens cleared');
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 export default {
     testConnection,
     createPost,
@@ -183,4 +192,5 @@ export default {
     findTokenByString,
     addPostToken,
     getPostIDByToken,
+    deleteTokens
 };
