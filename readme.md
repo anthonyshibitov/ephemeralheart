@@ -4,7 +4,7 @@
 
 [X] POST ID ISNT PASSED IN URL
 
-[ ] FRONT END WORK LOL neverending "FUN!!!"
+[X] FRONT END WORK LOL neverending "FUN!!!"
 
 [X] ADD CREATE POST / UPDATE PASS CODE
 
@@ -12,7 +12,7 @@
 
 [X] ADD ABUSE FILTER FOR SLURS AND OTHER OFFENSIVE STUFF
 
-[ ] BUTTON HOVER ON MOBILE IS "NON-FUNCTIONAL" :)
+[X] BUTTON HOVER ON MOBILE IS "NON-FUNCTIONAL" :) fixed teehee
 
 [ ] IF UNUSED TOKEN FOR THIS IP ADDRESS EXISTS, USE THAT.
 
@@ -20,12 +20,14 @@
 
 [X] AUTH TOKEN ALSO COMPARES IP TO INITIAL GENERATION TO STOP PPL FROM BRUTEFORCING ACTIVE TOKENS!
 
-[ ] FRONT-END REDESIGN
+[X] FRONT-END REDESIGN
 
 [X] character count does not work with some strings. it appears that tabs are being counted differently on the front end than on the back end? but they are both using the js .value method. it must be transformed as some point or formatted. 
 ^^^ FIXED. CHROME & FF ADD A \R TO \N IN THE POST BODY LOL. JUST USED REGEX TO STRIP IT OUT AND IT WORKS LIKE A CHARM AGAIN!! YIPPPEEE
 
-[ ] if db is empty, add test post
+[X] if db is empty, add test post
+
+[X] validate message length on the back-end. shadow post if over limit
 
 -   mobile first
 -   black text, off-white back

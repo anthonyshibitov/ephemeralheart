@@ -70,35 +70,37 @@ async function submitMessagePost(req, res) {
     } else {
         //make sure theres no bad words :)
         if (post.screenPost(req.body.userMessage)) {
-            const post_id = await db.getPostIDByToken(req.body.token, req.ip);
-            //Increment counter once token is authed
-            restrict.incTokenCount(req.ip);
-            console.log(
-                chalk.inverse("[MSG RECVD SUCCESS]"),
-                "ID:",
-                post_id,
-                "P/B:",
-                req.body.PB,
-                "MSG:",
-                chalk.magenta(req.body.userMessage.slice(0, 20)),
-                "..."
-            );
-            if (req.body.PB === "Pass") {
-                const result = await post.pass(
+            if(req.body.userMessage.length <= 1000) {
+                const post_id = await db.getPostIDByToken(req.body.token, req.ip);
+                //Increment counter once token is authed
+                restrict.incTokenCount(req.ip);
+                console.log(
+                    chalk.inverse("[MSG RECVD SUCCESS]"),
+                    "ID:",
                     post_id,
-                    req.body.userMessage,
-                    req.ip
+                    "P/B:",
+                    req.body.PB,
+                    "MSG:",
+                    chalk.magenta(req.body.userMessage.slice(0, 20)),
+                    "..."
                 );
-            }
-            if (req.body.PB === "Burn") {
-                messagePasses = await post.burn(
-                    post_id,
-                    req.body.userMessage,
-                    req.ip
-                );
+                if (req.body.PB === "Pass") {
+                    const result = await post.pass(
+                        post_id,
+                        req.body.userMessage,
+                        req.ip
+                    );
+                }
+                if (req.body.PB === "Burn") {
+                    messagePasses = await post.burn(
+                        post_id,
+                        req.body.userMessage,
+                        req.ip
+                    );
+                }
             }
             token.DestroyToken(req.body.token);
-            res.render("thanks.ejs", { passes: messagePasses });
+            res.render("thanks.ejs");
         } else {
             console.log(
                 chalk.redBright("[CANCEL POST]"),
