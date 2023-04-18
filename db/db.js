@@ -23,6 +23,23 @@ async function testConnection() {
     }
 }
 
+async function init(){
+    try {
+        const result = await pool.query("SELECT COUNT(*) FROM posts");
+        if(result.rows[0].count == 0){
+            console.log("[DB] No posts exist. Inserting dummy post");
+            createPost(
+                "This is a dummy post leftover from the server and database eastablish a connection between each other for the first time. Hi!",
+                "1.1.1.1"
+            );
+        } else {
+            console.log(`[DB] ${result.rows[0].count} posts exist. Skipping dummy insertion`);
+        }
+    } catch(err) {
+        console.error(err);
+    }
+}
+
 // PASS
 async function createPost(postContents, ipAddress) {
     try {
@@ -192,5 +209,6 @@ export default {
     findTokenByString,
     addPostToken,
     getPostIDByToken,
-    deleteTokens
+    deleteTokens,
+    init
 };

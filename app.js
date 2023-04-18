@@ -7,10 +7,7 @@ import token from "./token.js";
 
 db.testConnection();
 db.deleteTokens();
-// db.createPost(
-//     "IM GONNA KILLMYSELF AHHHHHHHHH HELPPPPPPP MEE SODKFASOKD",
-//     "192.168.1.81"
-// );
+db.init();
 
 const app = express();
 const port = 3000;
