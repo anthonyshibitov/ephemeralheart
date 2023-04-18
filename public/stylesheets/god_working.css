@@ -208,7 +208,7 @@ label {
     font-size: 1rem;
 }
 
-a {
+a, a:visited {
     text-decoration: none;
     color: black;
 }
