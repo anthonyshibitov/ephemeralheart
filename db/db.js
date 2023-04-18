@@ -23,8 +23,10 @@ async function testConnection() {
     }
 }
 
+// PASS
 async function createPost(postContents, ipAddress) {
     try {
+        postContents = postContents.replace(/\r/gm, '');
         const result = await pool.query(
             "INSERT INTO posts (post_contents, passes, post_ip, post_time) VALUES ($1, 0, $2, current_timestamp)",
             [postContents, ipAddress]
@@ -39,6 +41,7 @@ async function createPost(postContents, ipAddress) {
 // Returns amount of passes
 async function updatePostSameID(id, message, ipAddress) {
     try {
+        message = message.replace(/\r/gm, '');
         const result0 = await pool.query(
             "SELECT passes FROM posts WHERE post_id = $1",
             [id]
