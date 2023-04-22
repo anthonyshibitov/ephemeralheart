@@ -4,6 +4,7 @@ import post from "./post.js";
 import chalk from "chalk";
 import restrict from "./db/restrict.js";
 import jail from "./db/jail.js";
+import {time} from "./app.js";
 
 function getPost(req, res) {
     res.render("index");
@@ -25,7 +26,7 @@ async function getInterstitial(req, res) {
 async function getTribunal(req, res) {
     try {
         const auth = await token.authenticateToken(req.query.token, req.ip);
-        console.log("auth value:", auth);
+        console.log(time(), "auth value:", auth);
         if (!auth) {
             res.redirect("postTokenDied");
         } else {
@@ -74,7 +75,7 @@ async function submitMessagePost(req, res) {
                 const post_id = await db.getPostIDByToken(req.body.token, req.ip);
                 //Increment counter once token is authed
                 restrict.incTokenCount(req.ip);
-                console.log(
+                console.log(time(),
                     chalk.inverse("[MSG RECVD SUCCESS]"),
                     "ID:",
                     post_id,
@@ -102,7 +103,7 @@ async function submitMessagePost(req, res) {
             token.DestroyToken(req.body.token);
             res.render("thanks.ejs");
         } else {
-            console.log(
+            console.log(time(),
                 chalk.redBright("[CANCEL POST]"),
                 "Post contained banned word. Banning",
                 req.ip
@@ -134,10 +135,10 @@ function getAbout(req, res) {
 // CLIENT END POINTS!! ~~
 
 async function stress(req, res) {
-    console.log("[GET] getting STRESS TEST PATH :D");
+    console.log(time(), "[GET] getting STRESS TEST PATH :D");
     const newToken = await token.generateToken(req.ip);
     const result = await token.authenticateToken(newToken);
-    console.log("[TOKEN]", newToken, "is auth?", result);
+    console.log(time(), "[TOKEN]", newToken, "is auth?", result);
     res.sendStatus(200);
 }
 

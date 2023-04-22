@@ -16,7 +16,7 @@
 
 [ ] IF UNUSED TOKEN FOR THIS IP ADDRESS EXISTS, USE THAT.
 
-[ ] test reverse proxy works w IP by banning on one device and posting on another, on the VPS
+[X] test reverse proxy works w IP by banning on one device and posting on another, on the VPS (local ips are coming from the same router so same IP :// tested it w friend and it seemed to werk!!)
 
 [X] AUTH TOKEN ALSO COMPARES IP TO INITIAL GENERATION TO STOP PPL FROM BRUTEFORCING ACTIVE TOKENS!
 
@@ -28,6 +28,8 @@
 [X] if db is empty, add test post
 
 [X] validate message length on the back-end. shadow post if over limit
+
+[X] footer added
 
 -   mobile first
 -   black text, off-white back

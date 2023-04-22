@@ -1,10 +1,11 @@
 import db from "./db/db.js";
 import jail from "./db/jail.js";
 import chalk from "chalk";
+import {time} from "./app.js";
 
 async function pass(post_id, userMessage, ipAddress) {
     if (await jail.checkIPForBan(ipAddress)) {
-        console.log(chalk.redBright("[CANCEL POST]"), ipAddress, "is banned!");
+        console.log(time(), chalk.redBright("[CANCEL POST]"), ipAddress, "is banned!");
     } else {
         try {
             await db.incrementPassByID(post_id);
@@ -17,7 +18,7 @@ async function pass(post_id, userMessage, ipAddress) {
 
 async function burn(post_id, userMessage, ipAddress) {
     if (await jail.checkIPForBan(ipAddress)) {
-        console.log(chalk.redBright("[CANCEL POST]"), ipAddress, "is banned!");
+        console.log(time(), chalk.redBright("[CANCEL POST]"), ipAddress, "is banned!");
     } else {
         try {
             const result = await db.updatePostSameID(

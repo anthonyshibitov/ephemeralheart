@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
 import pg from "pg";
+import {time} from '../app.js';
 
 const { Pool } = pg;
 
@@ -17,7 +18,7 @@ const pool = new Pool({
 async function testConnection() {
     try {
         const output = await pool.query("SELECT NOW()");
-        console.log("[DB] CONNECTION SUCCESS:", output.rows[0].now);
+        console.log(time(), "[DB] CONNECTION SUCCESS:", output.rows[0].now);
     } catch (err) {
         console.error(err);
     }
@@ -27,13 +28,13 @@ async function init(){
     try {
         const result = await pool.query("SELECT COUNT(*) FROM posts");
         if(result.rows[0].count == 0){
-            console.log("[DB] No posts exist. Inserting dummy post");
+            console.log(time(), "[DB] No posts exist. Inserting dummy post");
             createPost(
                 "This is a dummy post leftover from the server and database eastablish a connection between each other for the first time. Hi!",
                 "1.1.1.1"
             );
         } else {
-            console.log(`[DB] ${result.rows[0].count} posts exist. Skipping dummy insertion`);
+            console.log(time(), `[DB] ${result.rows[0].count} posts exist. Skipping dummy insertion`);
         }
     } catch(err) {
         console.error(err);
@@ -191,7 +192,7 @@ async function getPostIDByToken(passToken, ip) {
 async function deleteTokens() {
     try {
         const result = await pool.query('DELETE FROM tokens');
-        console.log('[DB] Tokens cleared');
+        console.log(time(), '[DB] Tokens cleared');
     } catch (err) {
         console.error(err);
     }

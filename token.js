@@ -1,6 +1,7 @@
 import db from "./db/db.js";
 import chalk from "chalk";
 import restrict from "./db/restrict.js";
+import {time} from "./app.js";
 
 const tokens = [];
 
@@ -18,7 +19,7 @@ async function generateToken(ipAddress) {
         );
     }
 
-    console.log(chalk.cyan("[TOKEN]"), token, "has been created :)");
+    console.log(time(), chalk.cyan("[TOKEN]"), token, "has been created :)");
     await db.addToken(token, ipAddress);
     //add IP to ipTokenCount table!
     await restrict.generateTokenCount(ipAddress);
@@ -31,9 +32,9 @@ async function generateToken(ipAddress) {
 async function DestroyToken(token) {
     const result = await db.removeTokenByString(token);
     if (result) {
-        console.log(chalk.cyan("[TOKEN]"), token, "has been destroyed");
+        console.log(time(), chalk.cyan("[TOKEN]"), token, "has been destroyed");
     } else {
-        console.log(chalk.cyan("[TOKEN]"), token, "does not exist");
+        console.log(time(), chalk.cyan("[TOKEN]"), token, "does not exist");
     }
 }
 
@@ -52,7 +53,7 @@ async function authenticateToken(token, ip) {
             }
         } else {
             //user has posted too much :(
-            console.log(
+            console.log(time(),
                 chalk.redBright("[CANCEL POST]"),
                 ip,
                 "has exceeded daily token limit, or using foreign token"

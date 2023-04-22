@@ -20,16 +20,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(port, () => {
-    console.log(chalk.red("[SERVER]"), "Boot");
-    console.log(chalk.red("[SERVER]"), `Listening on port ${port}...`);
-    console.log(
+    console.log(time(), chalk.red("[SERVER]"), "Boot");
+    console.log(time(), chalk.red("[SERVER]"), `Listening on port ${port}...`);
+    console.log(time(),
         chalk.red("[SERVER]"),
         `Token shelf life (ms): ${token.tokenTimeout}`
     );
 });
 
 app.use("*", (req, res, next) => {
-    console.log(
+    console.log(time(),
         chalk.green("[METHOD/PATH/IP HASH]:"),
         req.method,
         req.originalUrl,
@@ -50,7 +50,7 @@ app.get("/postTokenDied", routes.getTokenDied);
 app.get("/thanks", routes.getThanks);
 app.get("/about", routes.getAbout);
 
-app.get("/stressTestPath", routes.stress);
+// app.get("/stressTestPath", routes.stress);
 
 app.use("/favicon.ico", express.static("/favicon.ico"));
 
@@ -58,3 +58,9 @@ app.use("/favicon.ico", express.static("/favicon.ico"));
 app.use(function (req, res) {
     res.status(404).render("404");
 });
+
+function time(){
+    return (new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString());
+}
+
+export {time};
